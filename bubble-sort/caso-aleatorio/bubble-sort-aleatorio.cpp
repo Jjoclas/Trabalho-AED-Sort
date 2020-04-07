@@ -52,8 +52,8 @@ void printArray(int arr[], int size)
 
 void salvarTempo(int tempo, int n){
   	FILE *arquivo;
-    arquivo= fopen ("tempo_bubble.txt","a");
-    fprintf(arquivo,"O tempo gasto para o vetor com %i posições foi de ", n);
+    arquivo= fopen ("tempo_bubble_aleatorio.txt","a");
+    fprintf(arquivo,"O tempo gasto para um vetor aleatorio com %i posições foi de ", n);
     fprintf(arquivo,"%i nanosegundos \n", tempo);
     return;
 }
