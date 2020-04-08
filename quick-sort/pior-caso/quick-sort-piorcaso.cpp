@@ -4,6 +4,21 @@
 #include <iostream>
 using namespace std;
 
+void ordenaDecrescente(int vetor[], int tamanho)
+{
+    for (int i = 0; i < tamanho ; i++)
+    {
+        for (int j = i; j < tamanho ; j++)
+        {
+            if (vetor[i] < vetor[j])
+            {
+                int temp = vetor[i];
+                vetor[i] = vetor[j];
+                vetor[j] = temp;
+            }
+        }
+    }
+}
 void quickSort(int vetor[], int inicio, int fim){
    
    int pivo, aux, i, j, meio;
@@ -50,13 +65,13 @@ void printArray(int arr[], int size)
 
 void salvarTempo(int tempo, int n){
   	FILE *arquivo;
-    arquivo= fopen ("resultado_quicksort_aleatorio.txt","a");
-    fprintf(arquivo,"O tempo gasto para um vetor aleatorio com %i posições foi de ", n);
+    arquivo= fopen ("resultado_quicksort_pior_caso.txt","a");
+    fprintf(arquivo,"O tempo gasto para um vetor no pior caso com %i posições foi de ", n);
     fprintf(arquivo,"%i nanosegundos \n", tempo);
     return;
 }
 void CalcTempo(int arr[], int n){
-
+    ordenaDecrescente(arr,n);
 	auto t1 =  chrono::high_resolution_clock::now();
   	quickSort(arr,0, n); 
 	auto t2 =  chrono::high_resolution_clock::now();
@@ -64,6 +79,7 @@ void CalcTempo(int arr[], int n){
 	cout<<"O tempo para ordenar um vetor de "<<n<<" posicoes ";
 	cout<<" O tempo gasto foi de " << duration<<" nanosegundos"<<"\n";
   	salvarTempo(duration, n);
+    
 }
 void salvaVariosTempos(int NInicial, int Nmax, int Nsoma){
   while (NInicial <= Nmax)

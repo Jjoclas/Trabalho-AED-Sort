@@ -1,36 +1,54 @@
+// Optimized implementation of Bubble sort 
 #include <stdio.h> 
 #include <time.h>
 #include <chrono>
 #include <iostream>
 using namespace std;
 
-void quickSort(int vetor[], int inicio, int fim){
-   
-   int pivo, aux, i, j, meio;
-   
-   i = inicio;
-   j = fim;
-   
-   meio = (int) ((i + j) / 2);
-   pivo = vetor[meio];
-   
-   do{
-      while (vetor[i] < pivo) i = i + 1;
-      while (vetor[j] > pivo) j = j - 1;
-      
-      if(i <= j){
-         aux = vetor[i];
-         vetor[i] = vetor[j];
-         vetor[j] = aux;
-         i = i + 1;
-         j = j - 1;
-      }
-   }while(j > i);
-   
-   if(inicio < j) quickSort(vetor, inicio, j);
-   if(i < fim) quickSort(vetor, i, fim);   
-
+void ordenaDecrescente(int vetor[], int tamanho)
+{
+    for (int i = 0; i < tamanho ; i++)
+    {
+        for (int j = i; j < tamanho ; j++)
+        {
+            if (vetor[i] < vetor[j])
+            {
+                int temp = vetor[i];
+                vetor[i] = vetor[j];
+                vetor[j] = temp;
+            }
+        }
+    }
 }
+void swap(int *xp, int *yp) 
+{ 
+	int temp = *xp; 
+	*xp = *yp; 
+	*yp = temp; 
+} 
+
+// Versão otimizada do Bubble sort 
+void bubbleSort(int arr[], int n) 
+{ 
+int i, j; 
+bool swapped; 
+for (i = 0; i < n-1; i++) 
+{ 
+	swapped = false; 
+	for (j = 0; j < n-i-1; j++) 
+	{ 
+		if (arr[j] > arr[j+1]) 
+		{ 
+		swap(&arr[j], &arr[j+1]); 
+		swapped = true; 
+		} 
+	} 
+
+	// Se os elementos forem trocados o loop para
+	if (swapped == false) 
+		break; 
+} 
+} 
 /* Função criar array*/
 void GeraAleatorios(int numeros[], int quant, int limite){
     srand(time(NULL));
@@ -50,15 +68,15 @@ void printArray(int arr[], int size)
 
 void salvarTempo(int tempo, int n){
   	FILE *arquivo;
-    arquivo= fopen ("resultado_quicksort_aleatorio.txt","a");
-    fprintf(arquivo,"O tempo gasto para um vetor aleatorio com %i posições foi de ", n);
+    arquivo= fopen ("resultado_bubble_pior_caso.txt","a");
+    fprintf(arquivo,"O tempo gasto para um vetor no pior caso com %i posições foi de ", n);
     fprintf(arquivo,"%i nanosegundos \n", tempo);
     return;
 }
 void CalcTempo(int arr[], int n){
-
+    ordenaDecrescente(arr,n);
 	auto t1 =  chrono::high_resolution_clock::now();
-  	quickSort(arr,0, n); 
+  	bubbleSort(arr, n); 
 	auto t2 =  chrono::high_resolution_clock::now();
 	auto duration =  chrono::duration_cast<chrono::nanoseconds>( t2 - t1 ).count();
 	cout<<"O tempo para ordenar um vetor de "<<n<<" posicoes ";
@@ -83,4 +101,3 @@ int main()
 	
 	return 0; 
 } 
-
