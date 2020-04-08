@@ -1,4 +1,3 @@
-// Optimized implementation of Bubble sort 
 #include <stdio.h> 
 #include <time.h>
 #include <chrono>

@@ -1,20 +1,38 @@
+// Optimized implementation of Bubble sort 
 #include <stdio.h> 
 #include <time.h>
 #include <chrono>
 #include <iostream>
 using namespace std;
+void swap(int *xp, int *yp) 
+{ 
+	int temp = *xp; 
+	*xp = *yp; 
+	*yp = temp; 
+} 
 
-void selectionSort(int *array, int size) {
-   int i, j, imin;
-   for(i = 0; i<size-1; i++) {
-      imin = i;   //get index of minimum data
-      for(j = i+1; j<size; j++)
-         if(array[j] < array[imin])
-            imin = j;
-         //placing in correct position
-         swap(array[i], array[imin]);
-   }
-}
+// Versão otimizada do Bubble sort 
+void bubbleSort(int arr[], int n) 
+{ 
+int i, j; 
+bool swapped; 
+for (i = 0; i < n-1; i++) 
+{ 
+	swapped = false; 
+	for (j = 0; j < n-i-1; j++) 
+	{ 
+		if (arr[j] > arr[j+1]) 
+		{ 
+		swap(&arr[j], &arr[j+1]); 
+		swapped = true; 
+		} 
+	} 
+
+	// Se os elementos forem trocados o loop para
+	if (swapped == false) 
+		break; 
+} 
+} 
 /* Função criar array*/
 void GeraAleatorios(int numeros[], int quant, int limite){
     srand(time(NULL));
@@ -34,15 +52,15 @@ void printArray(int arr[], int size)
 
 void salvarTempo(int tempo, int n){
   	FILE *arquivo;
-    arquivo= fopen ("resultado_selection_aleatorio.txt","a");
-    fprintf(arquivo,"O tempo gasto para um vetor aleatorio com %i posições foi de ", n);
+    arquivo= fopen ("resultado_bubble_ordenado.txt","a");
+    fprintf(arquivo,"O tempo gasto para um vetor ordenado com %i posições foi de ", n);
     fprintf(arquivo,"%i nanosegundos \n", tempo);
     return;
 }
 void CalcTempo(int arr[], int n){
-
+	bubbleSort(arr, n); 
 	auto t1 =  chrono::high_resolution_clock::now();
-  	selectionSort(arr, n); 
+  	bubbleSort(arr, n); 
 	auto t2 =  chrono::high_resolution_clock::now();
 	auto duration =  chrono::duration_cast<chrono::nanoseconds>( t2 - t1 ).count();
 	cout<<"O tempo para ordenar um vetor de "<<n<<" posicoes ";

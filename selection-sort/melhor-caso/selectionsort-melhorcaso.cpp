@@ -34,13 +34,13 @@ void printArray(int arr[], int size)
 
 void salvarTempo(int tempo, int n){
   	FILE *arquivo;
-    arquivo= fopen ("resultado_selection_aleatorio.txt","a");
+    arquivo= fopen ("resultado_selection_ordenado.txt","a");
     fprintf(arquivo,"O tempo gasto para um vetor aleatorio com %i posições foi de ", n);
     fprintf(arquivo,"%i nanosegundos \n", tempo);
     return;
 }
 void CalcTempo(int arr[], int n){
-
+  	selectionSort(arr, n); 
 	auto t1 =  chrono::high_resolution_clock::now();
   	selectionSort(arr, n); 
 	auto t2 =  chrono::high_resolution_clock::now();
