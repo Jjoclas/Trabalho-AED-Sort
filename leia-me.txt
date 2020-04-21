@@ -1,0 +1,5 @@
+Nesse arquivo se encontram 15 sub pastas (5 pastas para cada algoritmo e 3 subpastas em cada se relacionando as 3 situações possiveis).
+Dentro de cada subpasta há um executavel, este executavel gerará um arquivo txt com os resultados obtidos.
+
+PS: em decorrencia de um bug no qual o arquivo txt possuir valores negativos para o tempo executavel favor consultar os valores mostrados no terminal.
+
